@@ -248,6 +248,273 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/27/golang%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/27/golang%E5%AD%A6%E4%B9%A0/" itemprop="url">golang学习</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-27T13:54:46+08:00">
+                2019-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##深入学习golang<br>###1，golang学习-context<br>概念：context包是golang1.7版本中加入进来的特性，它的加入是为了简化处理请求之间调用所传递的上下文信息，这个信息包括了截止时间，超时时间，取消信号和额外的请求范围的值。</p>
+<p>WithCancel</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    &quot;context&quot;</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line">func main() &#123;</span><br><span class="line">    // gen函数在一个独立的goroutine不断生产int数，并且将产生出来的int数传递到一个无缓冲的channel中。</span><br><span class="line">    // 调用gen函数的函数需要在完成所需的处理之后取消产生int数的goroutine，来防止gen启动的内部goroutine泄露。</span><br><span class="line">    gen := func(ctx context.Context) &lt;-chan int &#123;</span><br><span class="line">        dst := make(chan int)</span><br><span class="line">        n := 1</span><br><span class="line">        go func() &#123;</span><br><span class="line">            for &#123;</span><br><span class="line">                select &#123;</span><br><span class="line">                case &lt;-ctx.Done():</span><br><span class="line">                    return // 返回能够避免goroutine泄露</span><br><span class="line">                case dst &lt;- n:</span><br><span class="line">                    n++</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;()</span><br><span class="line">        return dst</span><br><span class="line">    &#125;</span><br><span class="line">    ctx, cancel := context.WithCancel(context.Background())</span><br><span class="line">    defer cancel() // 延迟到main函数结束时调用</span><br><span class="line">    for n := range gen(ctx) &#123;</span><br><span class="line">        fmt.Println(n)</span><br><span class="line">        if n == 5 &#123;</span><br><span class="line">            break</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>WithDeadline</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    &quot;context&quot;</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line">func main() &#123;</span><br><span class="line">    d := time.Now().Add(50 * time.Millisecond)</span><br><span class="line">    ctx, cancel := context.WithDeadline(context.Background(), d)</span><br><span class="line">    // 虽然ctx会按需超期并触发cancel函数, 但是在任何时候调用cancel()函数主动取消context仍然是一个最佳实践。</span><br><span class="line">    // 如果不这样做可能会保留context及其父级的活动时间超过必要时间。</span><br><span class="line">    defer cancel()</span><br><span class="line">    select &#123;</span><br><span class="line">    case &lt;-time.After(1 * time.Second):</span><br><span class="line">        fmt.Println(&quot;overslept&quot;)</span><br><span class="line">    case &lt;-ctx.Done():</span><br><span class="line">        fmt.Println(ctx.Err())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>WithTimeout</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    &quot;context&quot;</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;time&quot;</span><br><span class="line">)</span><br><span class="line">func main() &#123;</span><br><span class="line">    // 传递一个带有timeout的context能够告知一个blocking函数当timeout超时时退出工作。</span><br><span class="line">    // 这个例子和deadline的很像，区别在于一个是传未来的一个时间点，一个是传一段时间</span><br><span class="line">    ctx, cancel := context.WithTimeout(context.Background(), 50*time.Millisecond)</span><br><span class="line">    defer cancel()</span><br><span class="line">    select &#123;</span><br><span class="line">    case &lt;-time.After(1 * time.Second):</span><br><span class="line">        fmt.Println(&quot;overslept&quot;)</span><br><span class="line">    case &lt;-ctx.Done():</span><br><span class="line">        fmt.Println(ctx.Err()) // prints &quot;context deadline exceeded&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>WithValue</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line">import (</span><br><span class="line">    &quot;context&quot;</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line">func main() &#123;</span><br><span class="line">    type favContextKey string</span><br><span class="line">    f := func(ctx context.Context, k favContextKey) &#123;</span><br><span class="line">        if v := ctx.Value(k); v != nil &#123;</span><br><span class="line">            fmt.Println(&quot;found value:&quot;, v)</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        fmt.Println(&quot;key not found:&quot;, k)</span><br><span class="line">    &#125;</span><br><span class="line">    k := favContextKey(&quot;language&quot;)</span><br><span class="line">    ctx := context.WithValue(context.Background(), k, &quot;Go&quot;)</span><br><span class="line">    f(ctx, k)</span><br><span class="line">    f(ctx, favContextKey(&quot;color&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/Lua/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/19/Lua/" itemprop="url">Lua</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-11-19T16:08:52+08:00">
+                2019-11-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>###Lua脚本<br>1，轻量级：c语言编写并以源代码形式开放，编译后仅100k左右。<br>2，可扩展：提供了非常易于使用的扩展接口哈机制，由宿主语言提供这些功能。<br>3，其他特性：<br>    支持面向过程和函数式编程<br>    自动内存管理</p>
+<pre><code>Lua中有8个基本类型分别为：nil、boolean、number、string、userdata、function、thread和table。</code></pre><p>关键词</p>
+<pre><code>and    break    do    else
+elseif    end    false    for
+function    if    in    local
+nil    not    or    repeat
+return    then    true    until</code></pre><p>全局变量-删除时，只需要赋值为nil即可</p>
+<p>lua的数据类型</p>
+<pre><code>nil    这个最简单，只有值nil属于该类，表示一个无效值（在条件表达式中相当于false）。
+boolean    包含两个值：false和true。
+number    表示双精度类型的实浮点数
+string    字符串由一对双引号或单引号来表示
+function    由 C 或 Lua 编写的函数
+userdata    表示任意存储在变量中的C数据结构
+thread    表示执行的独立线路，用于执行协同程序
+table    Lua 中的表（table）其实是一个&quot;关联数组&quot;（associative arrays），数组的索引可以是数字、字符串或表类型。在 Lua 里，table 的创建是通过&quot;构造表达式&quot;来完成，最简单构造表达式是{}，用来创建一个空表。</code></pre><p>参考：<br><a href="https://blog.csdn.net/wt461290528/article/details/80927121" target="_blank" rel="noopener">https://blog.csdn.net/wt461290528/article/details/80927121</a></p>
+<p><a href="https://www.runoob.com/lua/lua-tutorial.html" target="_blank" rel="noopener">https://www.runoob.com/lua/lua-tutorial.html</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/19/hexo%E4%BD%BF%E7%94%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -439,9 +706,9 @@
       
         
           
-            <p>**扫盲 DNS 原理，以及“域名劫持”和“域名欺骗/域名污染”<br><a href="https://blog.csdn.net/weixin_30539835/article/details/97520409" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30539835/article/details/97520409</a></p>
-<p>**扫盲文件完整性校验——关于散列值和数字签名<br><a href="https://blog.csdn.net/adazone/article/details/47404129" target="_blank" rel="noopener">https://blog.csdn.net/adazone/article/details/47404129</a></p>
-<p>**数字证书及CA的扫盲介绍<br><a href="https://www.cnblogs.com/liyulong1982/p/6106132.html" target="_blank" rel="noopener">https://www.cnblogs.com/liyulong1982/p/6106132.html</a></p>
+            <p>###扫盲 DNS 原理，以及“域名劫持”和“域名欺骗/域名污染”<br><a href="https://blog.csdn.net/weixin_30539835/article/details/97520409" target="_blank" rel="noopener">https://blog.csdn.net/weixin_30539835/article/details/97520409</a></p>
+<p>###扫盲文件完整性校验——关于散列值和数字签名<br><a href="https://blog.csdn.net/adazone/article/details/47404129" target="_blank" rel="noopener">https://blog.csdn.net/adazone/article/details/47404129</a></p>
+<p>###数字证书及CA的扫盲介绍<br><a href="https://www.cnblogs.com/liyulong1982/p/6106132.html" target="_blank" rel="noopener">https://www.cnblogs.com/liyulong1982/p/6106132.html</a></p>
 <p>hexo g<br>hexo s<br>hexo deploy</p>
 
           
@@ -913,7 +1180,7 @@
               
                 <a href="/archives/%20%7C%7C%20archive">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
