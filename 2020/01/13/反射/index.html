@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="反射.mdTypeOf =&amp;gt; TypeValueOf =&amp;gt; Value Type是一个接口类型，可以使用TypeOf获取任何值的变量的类型。、、、type Type interface {        Align() int        FieldAlign() int        Method(int) Method        MethodByName(string) (M">
+<meta property="og:type" content="article">
+<meta property="og:title" content="反射">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;13&#x2F;%E5%8F%8D%E5%B0%84&#x2F;index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="反射.mdTypeOf =&amp;gt; TypeValueOf =&amp;gt; Value Type是一个接口类型，可以使用TypeOf获取任何值的变量的类型。、、、type Type interface {        Align() int        FieldAlign() int        Method(int) Method        MethodByName(string) (M">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-01-13T11:59:59.755Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/01/13/反射/"/>
+
+
+
+
+
+  <title>反射 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/13/%E5%8F%8D%E5%B0%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">反射</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-01-13T11:08:31+08:00">
+                2020-01-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>反射.md<br>TypeOf =&gt; Type<br>ValueOf =&gt; Value</p>
+<p>Type是一个接口类型，可以使用TypeOf获取任何值的变量的类型。<br>、、、<br>type Type interface {<br>        Align() int<br>        FieldAlign() int<br>        Method(int) Method<br>        MethodByName(string) (Method, bool) 获取当前类型对应的方法的引用<br>        NumMethod() int<br>        Name() string<br>        PkgPath() string<br>        Size() uintptr<br>        String() string<br>        Kind() Kind<br>        Implements(u Type) bool 判断当前类型是否实现了某个接口<br>        …<br>}</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">反射包Value和Type类型不同，Type是一个接口类型，但是Value在reflect包中的定义是一个结构体，这个结构体没有任何对外暴露的成员变量，但是提供了很多方法让我们获取或者写入Value结构体中存储的数据</span><br><span class="line">、、、</span><br><span class="line">type Value struct &#123;</span><br><span class="line">        // contains filtered or unexported fields</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (v Value) Addr() Value</span><br><span class="line">func (v Value) Bool() bool</span><br><span class="line">func (v Value) Bytes() []byte</span><br><span class="line">func (v Value) Float() float64</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="反射法则"><a href="#反射法则" class="headerlink" title="反射法则"></a>反射法则</h2><p>运行时反射是程序在运行期间检查其自身结构的一种方式，它是元编程的一种。<br>1，从接口值可反射出反射对象<br>2，从反射对下可反射出接口值<br>3，要修改反射对下，其值必须可设置</p>
+<h3 id="第一法则"><a href="#第一法则" class="headerlink" title="第一法则"></a>第一法则</h3><p>反射的第一法则就是，我们能够从Go语言的接口类型变量转换成反射对下，上面提到的reflect.TypeOf和reflect.ValueOf就是完成这个转换的两个最重要方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;reflect&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    author := &quot;draven&quot;</span><br><span class="line">    fmt.Println(&quot;TypeOf author:&quot;, reflect.TypeOf(author))</span><br><span class="line">    fmt.Println(&quot;ValueOf author:&quot;, reflect.ValueOf(author))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ go run main.go</span><br><span class="line">TypeOf author: string</span><br><span class="line">ValueOf author: draven</span><br></pre></td></tr></table></figure>
+
+<p>从变量的类型我们可以获当前类型能够执行的方法Method以及当前类型实现的接口等信息<br>对于结构体，可以获取字段的数量并通过下标和字段名获取字段StructField<br>对于哈希表，可以获取哈希表的key类型<br>对于函数或方法，可以获得入参和返回值的类型</p>
+<h3 id="第二法则"><a href="#第二法则" class="headerlink" title="第二法则"></a>第二法则</h3><p>我们既然能够将接口类型的变量转换成反射对下类型，那么也需要一些其他方法将反射对下还原成接口类型的变量，reflect中的Interface方法能够完成这项工作</p>
+<p>然而调用Interface方法我们也只能获得interfaec{}类型的接口变量，如果想要将其还原成原本的类型，我们还需要进行一次强制的类型转换，例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v := reflect.ValueOf(1)</span><br><span class="line">v.Interface&#123;&#125;.(int)</span><br></pre></td></tr></table></figure>
+
+<p>从接口值到反射对象需要经过从基本类型到接口类型的类型转换和从接口类型到反射对象类型的转换。所有的对象需要先转换成接口类型，然后再通过强制转换变成原始类型。</p>
+<h3 id="第三法则"><a href="#第三法则" class="headerlink" title="第三法则"></a>第三法则</h3><p>Go语言反射的最后一条法则是与值是否可以被变更相关的，如果我们想要更新一个reflect.Value，那么它持有的值一定是可以被更新的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">    i := 1</span><br><span class="line">    v := reflect.ValueOf(i)</span><br><span class="line">    v.SetInt(10)</span><br><span class="line">    fmt.Println(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ go run reflect.go</span><br><span class="line">panic: reflect: reflect.flag.mustBeAssignable using unaddressable value</span><br><span class="line"></span><br><span class="line">goroutine 1 [running]:</span><br><span class="line">reflect.flag.mustBeAssignableSlow(0x82, 0x1014c0)</span><br><span class="line">    /usr/local/go/src/reflect/value.go:247 +0x180</span><br><span class="line">reflect.flag.mustBeAssignable(...)</span><br><span class="line">    /usr/local/go/src/reflect/value.go:234</span><br><span class="line">reflect.Value.SetInt(0x100dc0, 0x414020, 0x82, 0x1840, 0xa, 0x0)</span><br><span class="line">    /usr/local/go/src/reflect/value.go:1606 +0x40</span><br><span class="line">main.main()</span><br><span class="line">    /tmp/sandbox590309925/prog.go:11 +0xe0</span><br></pre></td></tr></table></figure>
+
+<h2 id="类型和值"><a href="#类型和值" class="headerlink" title="类型和值"></a>类型和值</h2><p>emptyInterface这个结构体来表示的，其中包含一个rtype字段用于标识变量的类型以及一个word字段指向内部封装的数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type emptyInterface struct &#123;</span><br><span class="line">    typ  *rtype</span><br><span class="line">    word unsafe.Pointer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用于获取变量类型的TypeOf函数就是将传入的i变量强制转换成emptyInterface类型，并获取其中存储的类型信息rtype：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func TypeOf(i interface&#123;&#125;) Type &#123;</span><br><span class="line">    eface := *(*emptyInterface)(unsafe.Pointer(&amp;i))</span><br><span class="line">    return toType(eface.typ)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func toType(t *rtype) Type &#123;</span><br><span class="line">    if t == nil &#123;</span><br><span class="line">        return nil</span><br><span class="line">    &#125;</span><br><span class="line">    return t</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ValueOf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">func ValueOf(i interface&#123;&#125;) Value &#123;</span><br><span class="line">    if i == nil &#123;</span><br><span class="line">        return Value&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    escapes(i)</span><br><span class="line"></span><br><span class="line">    return unpackEface(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func unpackEface(i interface&#123;&#125;) Value &#123;</span><br><span class="line">    e := (*emptyInterface)(unsafe.Pointer(&amp;i))</span><br><span class="line">    t := e.typ</span><br><span class="line">    if t == nil &#123;</span><br><span class="line">        return Value&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    f := flag(t.Kind())</span><br><span class="line">    if ifaceIndir(t) &#123;</span><br><span class="line">        f |= flagIndir</span><br><span class="line">    &#125;</span><br><span class="line">    return Value&#123;t, e.word, f&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="更新变量"><a href="#更新变量" class="headerlink" title="更新变量"></a>更新变量</h2><p>当我们想要更新一个reflect.Value时，就需要调用Set方法更新反射对下。该方法会调用mustBeAssignable和mustBeExported分别检查当前反射对下是否可以被设置的和对外暴露的公开字段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func (v Value) Set(x Value) &#123;</span><br><span class="line">    v.mustBeAssignable()</span><br><span class="line">    x.mustBeExported() // do not let unexported x leak</span><br><span class="line">    var target unsafe.Pointer</span><br><span class="line">    if v.kind() == Interface &#123;</span><br><span class="line">        target = v.ptr</span><br><span class="line">    &#125;</span><br><span class="line">    x = x.assignTo(&quot;reflect.Set&quot;, v.typ, target)</span><br><span class="line">    if x.flag&amp;flagIndir != 0 &#123;</span><br><span class="line">        typedmemmove(v.typ, v.ptr, x.ptr)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        *(*unsafe.Pointer)(v.ptr) = x.ptr</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/29/%E5%AF%86%E7%A0%81%E5%AD%A6/" rel="next" title="密码学">
+                <i class="fa fa-chevron-left"></i> 密码学
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#反射法则"><span class="nav-number">1.</span> <span class="nav-text">反射法则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一法则"><span class="nav-number">1.1.</span> <span class="nav-text">第一法则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二法则"><span class="nav-number">1.2.</span> <span class="nav-text">第二法则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三法则"><span class="nav-number">1.3.</span> <span class="nav-text">第三法则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型和值"><span class="nav-number">2.</span> <span class="nav-text">类型和值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新变量"><span class="nav-number">3.</span> <span class="nav-text">更新变量</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
