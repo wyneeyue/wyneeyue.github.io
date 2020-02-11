@@ -6,16 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>反射 | wyue</title>
+  <title>Archives: 2020/2 | wyue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="反射.mdTypeOf =&amp;gt; TypeValueOf =&amp;gt; Value Type是一个接口类型，可以使用TypeOf获取任何值的变量的类型。、、、type Type interface {        Align() int        FieldAlign() int        Method(int) Method        MethodByName(string) (M">
-<meta property="og:type" content="article">
-<meta property="og:title" content="反射">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;13&#x2F;%E5%8F%8D%E5%B0%84&#x2F;index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="wyue">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2020&#x2F;02&#x2F;index.html">
 <meta property="og:site_name" content="wyue">
-<meta property="og:description" content="反射.mdTypeOf =&amp;gt; TypeValueOf =&amp;gt; Value Type是一个接口类型，可以使用TypeOf获取任何值的变量的类型。、、、type Type interface {        Align() int        FieldAlign() int        Method(int) Method        MethodByName(string) (M">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-01-13T11:59:59.755Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="wyue" type="application/atom+xml">
@@ -152,190 +149,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-反射" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      反射
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/02/11/aa/" class="archive-article-date">
+  	<time datetime="2020-02-11T12:09:27.340Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-11</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/02/11/aa/">aa</a>
     </h1>
   
 
-        
-        <a href="/2020/01/13/%E5%8F%8D%E5%B0%84/" class="archive-article-date">
-  	<time datetime="2020-01-13T03:08:31.469Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>反射.md<br>TypeOf =&gt; Type<br>ValueOf =&gt; Value</p>
-<p>Type是一个接口类型，可以使用TypeOf获取任何值的变量的类型。<br>、、、<br>type Type interface {<br>        Align() int<br>        FieldAlign() int<br>        Method(int) Method<br>        MethodByName(string) (Method, bool) 获取当前类型对应的方法的引用<br>        NumMethod() int<br>        Name() string<br>        PkgPath() string<br>        Size() uintptr<br>        String() string<br>        Kind() Kind<br>        Implements(u Type) bool 判断当前类型是否实现了某个接口<br>        …<br>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">反射包Value和Type类型不同，Type是一个接口类型，但是Value在reflect包中的定义是一个结构体，这个结构体没有任何对外暴露的成员变量，但是提供了很多方法让我们获取或者写入Value结构体中存储的数据</span><br><span class="line">、、、</span><br><span class="line">type Value struct &#123;</span><br><span class="line">        // contains filtered or unexported fields</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (v Value) Addr() Value</span><br><span class="line">func (v Value) Bool() bool</span><br><span class="line">func (v Value) Bytes() []byte</span><br><span class="line">func (v Value) Float() float64</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+        <div class="article-info info-on-right">
+          
+          
 
-
-<h2 id="反射法则"><a href="#反射法则" class="headerlink" title="反射法则"></a>反射法则</h2><p>运行时反射是程序在运行期间检查其自身结构的一种方式，它是元编程的一种。<br>1，从接口值可反射出反射对象<br>2，从反射对下可反射出接口值<br>3，要修改反射对下，其值必须可设置</p>
-<h3 id="第一法则"><a href="#第一法则" class="headerlink" title="第一法则"></a>第一法则</h3><p>反射的第一法则就是，我们能够从Go语言的接口类型变量转换成反射对下，上面提到的reflect.TypeOf和reflect.ValueOf就是完成这个转换的两个最重要方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;reflect&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    author := &quot;draven&quot;</span><br><span class="line">    fmt.Println(&quot;TypeOf author:&quot;, reflect.TypeOf(author))</span><br><span class="line">    fmt.Println(&quot;ValueOf author:&quot;, reflect.ValueOf(author))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ go run main.go</span><br><span class="line">TypeOf author: string</span><br><span class="line">ValueOf author: draven</span><br></pre></td></tr></table></figure>
-
-<p>从变量的类型我们可以获当前类型能够执行的方法Method以及当前类型实现的接口等信息<br>对于结构体，可以获取字段的数量并通过下标和字段名获取字段StructField<br>对于哈希表，可以获取哈希表的key类型<br>对于函数或方法，可以获得入参和返回值的类型</p>
-<h3 id="第二法则"><a href="#第二法则" class="headerlink" title="第二法则"></a>第二法则</h3><p>我们既然能够将接口类型的变量转换成反射对下类型，那么也需要一些其他方法将反射对下还原成接口类型的变量，reflect中的Interface方法能够完成这项工作</p>
-<p>然而调用Interface方法我们也只能获得interfaec{}类型的接口变量，如果想要将其还原成原本的类型，我们还需要进行一次强制的类型转换，例如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v := reflect.ValueOf(1)</span><br><span class="line">v.Interface&#123;&#125;.(int)</span><br></pre></td></tr></table></figure>
-
-<p>从接口值到反射对象需要经过从基本类型到接口类型的类型转换和从接口类型到反射对象类型的转换。所有的对象需要先转换成接口类型，然后再通过强制转换变成原始类型。</p>
-<h3 id="第三法则"><a href="#第三法则" class="headerlink" title="第三法则"></a>第三法则</h3><p>Go语言反射的最后一条法则是与值是否可以被变更相关的，如果我们想要更新一个reflect.Value，那么它持有的值一定是可以被更新的。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">func main() &#123;</span><br><span class="line">    i := 1</span><br><span class="line">    v := reflect.ValueOf(i)</span><br><span class="line">    v.SetInt(10)</span><br><span class="line">    fmt.Println(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$ go run reflect.go</span><br><span class="line">panic: reflect: reflect.flag.mustBeAssignable using unaddressable value</span><br><span class="line"></span><br><span class="line">goroutine 1 [running]:</span><br><span class="line">reflect.flag.mustBeAssignableSlow(0x82, 0x1014c0)</span><br><span class="line">    /usr/local/go/src/reflect/value.go:247 +0x180</span><br><span class="line">reflect.flag.mustBeAssignable(...)</span><br><span class="line">    /usr/local/go/src/reflect/value.go:234</span><br><span class="line">reflect.Value.SetInt(0x100dc0, 0x414020, 0x82, 0x1840, 0xa, 0x0)</span><br><span class="line">    /usr/local/go/src/reflect/value.go:1606 +0x40</span><br><span class="line">main.main()</span><br><span class="line">    /tmp/sandbox590309925/prog.go:11 +0xe0</span><br></pre></td></tr></table></figure>
-
-<h2 id="类型和值"><a href="#类型和值" class="headerlink" title="类型和值"></a>类型和值</h2><p>emptyInterface这个结构体来表示的，其中包含一个rtype字段用于标识变量的类型以及一个word字段指向内部封装的数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">type emptyInterface struct &#123;</span><br><span class="line">    typ  *rtype</span><br><span class="line">    word unsafe.Pointer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>用于获取变量类型的TypeOf函数就是将传入的i变量强制转换成emptyInterface类型，并获取其中存储的类型信息rtype：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">func TypeOf(i interface&#123;&#125;) Type &#123;</span><br><span class="line">    eface := *(*emptyInterface)(unsafe.Pointer(&amp;i))</span><br><span class="line">    return toType(eface.typ)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func toType(t *rtype) Type &#123;</span><br><span class="line">    if t == nil &#123;</span><br><span class="line">        return nil</span><br><span class="line">    &#125;</span><br><span class="line">    return t</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ValueOf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">func ValueOf(i interface&#123;&#125;) Value &#123;</span><br><span class="line">    if i == nil &#123;</span><br><span class="line">        return Value&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    escapes(i)</span><br><span class="line"></span><br><span class="line">    return unpackEface(i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func unpackEface(i interface&#123;&#125;) Value &#123;</span><br><span class="line">    e := (*emptyInterface)(unsafe.Pointer(&amp;i))</span><br><span class="line">    t := e.typ</span><br><span class="line">    if t == nil &#123;</span><br><span class="line">        return Value&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    f := flag(t.Kind())</span><br><span class="line">    if ifaceIndir(t) &#123;</span><br><span class="line">        f |= flagIndir</span><br><span class="line">    &#125;</span><br><span class="line">    return Value&#123;t, e.word, f&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="更新变量"><a href="#更新变量" class="headerlink" title="更新变量"></a>更新变量</h2><p>当我们想要更新一个reflect.Value时，就需要调用Set方法更新反射对下。该方法会调用mustBeAssignable和mustBeExported分别检查当前反射对下是否可以被设置的和对外暴露的公开字段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">func (v Value) Set(x Value) &#123;</span><br><span class="line">    v.mustBeAssignable()</span><br><span class="line">    x.mustBeExported() // do not let unexported x leak</span><br><span class="line">    var target unsafe.Pointer</span><br><span class="line">    if v.kind() == Interface &#123;</span><br><span class="line">        target = v.ptr</span><br><span class="line">    &#125;</span><br><span class="line">    x = x.assignTo(&quot;reflect.Set&quot;, v.typ, target)</span><br><span class="line">    if x.flag&amp;flagIndir != 0 &#123;</span><br><span class="line">        typedmemmove(v.typ, v.ptr, x.ptr)</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        *(*unsafe.Pointer)(v.ptr) = x.ptr</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/13/%E5%8F%8D%E5%B0%84/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/02/11/aa/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          aa
-        
-      </div>
-    </a>
   
   
-    <a href="/2019/11/29/%E5%AF%86%E7%A0%81%E5%AD%A6/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">密码学</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -358,8 +214,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
