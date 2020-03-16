@@ -8,14 +8,14 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>golang学习-接口 | wyue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##golang学习-接口面向接口 面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。 如果">
+  <meta name="description" content="golang学习-接口面向接口 面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。 如果一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="golang学习-接口">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;13&#x2F;golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3&#x2F;index.html">
 <meta property="og:site_name" content="wyue">
-<meta property="og:description" content="##golang学习-接口面向接口 面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。 如果">
+<meta property="og:description" content="golang学习-接口面向接口 面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。 如果一个">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-13T02:08:28.023Z">
+<meta property="og:updated_time" content="2020-03-16T07:45:13.188Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="wyue" type="application/atom+xml">
@@ -172,7 +172,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##golang学习-接口<br>面向接口</p>
+        <h2 id="golang学习-接口"><a href="#golang学习-接口" class="headerlink" title="golang学习-接口"></a>golang学习-接口</h2><p>面向接口</p>
 <p>面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。<br>这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。</p>
 <p>如果一个略有规模的项目中没有出现任何 type … interface 的定义，那么作者可以推测出这在很大的概率上是一个工程质量堪忧并且没有多少单元测试覆盖的项目，我们确实需要认真考虑一下如何使用接口对项目进行重构。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package post</span><br><span class="line"></span><br><span class="line">var client *grpc.ClientConn</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">    var err error</span><br><span class="line">    client, err = grpc.Dial(...）</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        panic(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func ListPosts() ([]*Post, error) &#123;</span><br><span class="line">    posts, err := client.ListPosts(...)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return []*Post&#123;&#125;, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return posts, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
