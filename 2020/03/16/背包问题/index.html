@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>golang学习-接口 | wyue</title>
+  <title>背包问题 | wyue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##golang学习-接口面向接口 面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。 如果">
+  <meta name="description" content="背包问题n是商品个数m是总重量w是输入的商品重量val是输入的商品价值1，01背包 ###二维数组 1234567891011121314for i:=1;i&amp;lt;n+1;i++&amp;#123;	for j :=1;j&amp;lt;m+1;j++&amp;#123;		if (j&amp;lt;w[i]) &amp;#123;			dp[i][j]= dp[i-1][j]		&amp;#125; else &amp;#123;			if dp[">
 <meta property="og:type" content="article">
-<meta property="og:title" content="golang学习-接口">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;13&#x2F;golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3&#x2F;index.html">
+<meta property="og:title" content="背包问题">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;03&#x2F;16&#x2F;%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98&#x2F;index.html">
 <meta property="og:site_name" content="wyue">
-<meta property="og:description" content="##golang学习-接口面向接口 面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。 如果">
+<meta property="og:description" content="背包问题n是商品个数m是总重量w是输入的商品重量val是输入的商品价值1，01背包 ###二维数组 1234567891011121314for i:=1;i&amp;lt;n+1;i++&amp;#123;	for j :=1;j&amp;lt;m+1;j++&amp;#123;		if (j&amp;lt;w[i]) &amp;#123;			dp[i][j]= dp[i-1][j]		&amp;#125; else &amp;#123;			if dp[">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-13T02:08:28.023Z">
+<meta property="og:updated_time" content="2020-03-16T07:41:24.316Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="wyue" type="application/atom+xml">
@@ -152,39 +152,35 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-golang学习-接口" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-背包问题" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      golang学习-接口
+      背包问题
     </h1>
   
 
         
-        <a href="/2020/02/13/golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2020-02-13T01:56:07.351Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
+        <a href="/2020/03/16/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  	<time datetime="2020-03-16T07:17:15.907Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##golang学习-接口<br>面向接口</p>
-<p>面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。<br>这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。</p>
-<p>如果一个略有规模的项目中没有出现任何 type … interface 的定义，那么作者可以推测出这在很大的概率上是一个工程质量堪忧并且没有多少单元测试覆盖的项目，我们确实需要认真考虑一下如何使用接口对项目进行重构。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package post</span><br><span class="line"></span><br><span class="line">var client *grpc.ClientConn</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">    var err error</span><br><span class="line">    client, err = grpc.Dial(...）</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        panic(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func ListPosts() ([]*Post, error) &#123;</span><br><span class="line">    posts, err := client.ListPosts(...)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return []*Post&#123;&#125;, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return posts, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package post</span><br><span class="line"></span><br><span class="line">type Service interface &#123;</span><br><span class="line">    ListPosts() ([]*Post, error)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type service struct &#123;</span><br><span class="line">    conn *grpc.ClientConn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewService(conn *grpc.ClientConn) Service &#123;</span><br><span class="line">    return &amp;service&#123;</span><br><span class="line">        conn: conn,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *service) ListPosts() ([]*Post, error) &#123;</span><br><span class="line">    posts, err := s.conn.ListPosts(...)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return []*Post&#123;&#125;, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return posts, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过接口 Service 暴露对外的 ListPosts 方法；<br>使用 NewService 函数初始化 Service 接口的实现并通过私有的结构体 service 持有 grpc 连接；<br>ListPosts 不再依赖全局变量，而是依赖接口体 service 持有的连接；<br>当我们使用这种方式重构代码之后，就可以在 main 函数中显式的初始化 grpc 连接、创建 Service 接口的实现并调用 ListPosts 方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import ...</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    conn, err = grpc.Dial(...）</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        panic(err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    svc := post.NewService(conn)</span><br><span class="line">    posts, err := svc.ListPosts()</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        panic(err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fmt.Println(posts)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种使用接口组织代码的方式在 Go 语言中非常常见，我们应该在代码中尽可能地使用这种思想和模式对外提供功能：</p>
-<p>使用大写的 Service 对外暴露方法；<br>使用小写的 service 实现接口中定义的方法；<br>通过 NewService 函数初始化 Service 接口；<br>当我们使用上述方法组织代码之后，其实就对不同模块的依赖进行了解耦，也正遵循了软件设计中经常被提到的一句话 — 『依赖接口，不要依赖实现』，也就是面向接口编程。</p>
-
+        <p>背包问题<br>n是商品个数<br>m是总重量<br>w是输入的商品重量<br>val是输入的商品价值<br>1，01背包</p>
+<p>###二维数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">for i:=1;i&lt;n+1;i++&#123;</span><br><span class="line">	for j :=1;j&lt;m+1;j++&#123;</span><br><span class="line">		if (j&lt;w[i]) &#123;</span><br><span class="line">			dp[i][j]= dp[i-1][j]</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			if dp[i-1][j] &gt; dp[i-1][j-w[i]] + val[i] &#123;</span><br><span class="line">				dp[i][j]= dp[i-1][j]</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				dp[i][j]= dp[i-1][j-w[i]] + val[i]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###一维数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for i:=1;i&lt;n+1;i++&#123;</span><br><span class="line">	for j :=m;j&gt;=w[i];j--&#123;</span><br><span class="line">		if dp[j] &lt; dp[j-w[i]] + val[i] &#123;</span><br><span class="line">			dp[j] = dp[j-w[i]] + val[i]</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			dp[j] = dp[j]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2，完全背包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for i:=1;i&lt;n+1;i++&#123;</span><br><span class="line">	for j :=w[i];j&lt;=m;j++&#123;</span><br><span class="line">		if dp[j] &lt; dp[j-w[i]] + val[i] &#123;</span><br><span class="line">			dp[j] = dp[j-w[i]] + val[i]</span><br><span class="line">		&#125; else &#123;</span><br><span class="line">			dp[j] = dp[j]</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>3，混合背包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">for i:=1;i&lt;n+1;i++&#123;</span><br><span class="line">	if (is01(i)) &#123;</span><br><span class="line">		for j :=m;j&gt;=w[i];j--&#123;</span><br><span class="line">			if dp[j] &lt; dp[j-w[i]] + val[i] &#123;</span><br><span class="line">				dp[j] = dp[j-w[i]] + val[i]</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				dp[j] = dp[j]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		for j :=w[i];j&lt;=m;j++&#123;</span><br><span class="line">			if dp[j] &lt; dp[j-w[i]] + val[i] &#123;</span><br><span class="line">				dp[j] = dp[j-w[i]] + val[i]</span><br><span class="line">			&#125; else &#123;</span><br><span class="line">				dp[j] = dp[j]</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -263,7 +259,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/13/golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/03/16/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -277,18 +273,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/03/16/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          背包问题
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/01/13/%E5%8F%8D%E5%B0%84/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">反射</div>
+    <a href="/2020/02/13/golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">golang学习-接口</div>
       <i class="icon-circle-right"></i>
     </a>
   
