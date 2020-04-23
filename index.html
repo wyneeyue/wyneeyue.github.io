@@ -151,6 +151,76 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/23/mysql/">mysql</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/23/mysql/" class="archive-article-date">
+  	<time datetime="2020-04-23T03:06:32.123Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>1，引擎</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">redo    InnoDB引擎专用   物理  crash_safe 归档</span><br><span class="line">binlog  mysql  逻辑</span><br></pre></td></tr></table></figure>
+
+<p>2，事务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>3，索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">哈希表 不适合范围</span><br><span class="line">二叉树 磁盘查询</span><br><span class="line">B+树 最好</span><br><span class="line">有序数组   不适合插入，适合历史静态数据</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/23/mysql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-背包问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -767,77 +837,6 @@ table    Lua 中的表（table）其实是一个&quot;关联数组&quot;（assoc
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/19/%E8%BD%AE%E8%AF%A2%E6%96%B9%E5%BC%8F/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-http请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/19/http%E8%AF%B7%E6%B1%82/">http请求</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/19/http%E8%AF%B7%E6%B1%82/" class="archive-article-date">
-  	<time datetime="2019-11-19T05:06:45.572Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>GET：请求指定的页面信息，并返回实体主体</p>
-<p>HEAD：类似于GET请求，只不过返回的响应中没有具体的内容，用于获取报头。</p>
-<p>POST：向指定资源提交数据进行处理请求，数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。</p>
-<p>PUT：从客户端向服务器传送的数据取代指定的文档的内容。</p>
-<p>DELETE：请求服务器删除指定的页面。</p>
-<p>CONNECT：Http1.1协议中预留给能够将连接改为管道方式的代理服务器。</p>
-<p>OPTIONS：允许客户端查看服务器的性能。</p>
-<p>TRACE：回显服务器收到的请求，主要用户测试或诊断。</p>
-<p>PATCH：是对put方法的补充，用来对已知资源进行局部更新。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/19/http%E8%AF%B7%E6%B1%82/">展开全文 >></a>
         </p>
       
 
