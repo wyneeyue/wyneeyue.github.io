@@ -151,6 +151,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-pprof" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/30/pprof/">pprof</a>
+    </h1>
+  
+
+        
+        <a href="/2020/04/30/pprof/" class="archive-article-date">
+  	<time datetime="2020-04-30T03:23:44.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#介绍：<br>###1.1 profiling 介绍</p>
+<p>profiling 就是对应用的画像，这里画像就是应用使用 CPU 和内存的情况。也就是说应用使用了多少 CPU 资源。</p>
+<p>在 go 语言中，主要关注的应用运行情况主要包括以下几种：</p>
+<p>CPU profile：报告程序的 CPU 使用情况，按照一定频率去采集应用程序在 CPU 和寄存器上面的数据<br>Memory Profile（Heap Profile）：报告程序的内存使用情况<br>Block Profiling：报告 goroutines 不在运行状态的情况，可以用来分析和查找死锁等性能瓶颈<br>Goroutine Profiling：报告 goroutines 的使用情况，有哪些 goroutine，它们的调用关系是怎样的<br>###1.2 Go 语言自带的 pprof 库<br>go 语言提供了 runtime/pprof 和 net/http/pprof </p>
+<p>####应用场景<br>runtime/pprof     应用是一次性的，运行一段时间就结束<br>net/http/pprof<br>对于在线服务，对于一个 HTTP Server，</p>
+<p>访问 pprof 提供的 HTTP 接口，获得性能数据</p>
+<p>GDP基于GIn框架，gin的pprof工具 集成了net/http/pprof， 可以直接</p>
+<p>“github.com/DeanThompson/ginpprof”</p>
+<p>ginpprof.Wrap(webServer.Engine)<br>###1.3 命令</p>
+<p>1.3.1 go tool pprof<br>命令行交互模式：</p>
+<p>下载 cpu profile，默认从当前开始收集 30s 的 cpu 使用情况，需要等待 30s，后面还可以带上时间参数：?seconds=60，自定义 CPU Profiling 的时长。</p>
+<p>tool pprof <a href="http://10.99.205.129:8010/debug/pprof/profile" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/profile</a></p>
+<p>下载 heap<br>go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/heap" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/heap</a></p>
+<p>下载 heap<br>go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/heap" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/heap</a></p>
+<p>执行 web（需要安装 graphviz，pprof 能够借助 grapgviz 生成程序的调用图），会生成一个 svg，直接在浏览器里打开（可能需要设置一下 .svg 文件格式的默认打开方式）<br>1.3.2 go-torch<br>这是 uber 开源的一个工具，可以直接读取 golang profiling 数据，并生成一个火焰图的 svg 文件。</p>
+<p>go-torch</p>
+<p>-u –url：要访问的 URL，这里只是主机和端口部分<br>-s –suffix：pprof profile 的路径，默认为 /debug/pprof/profile<br>–seconds：要执行 profiling 的时间长度，默认为 30s<br>go-torch -u <a href="http://10.99.205.129:8010" target="_blank" rel="noopener">http://10.99.205.129:8010</a> –seconds 60 -f cpu.svg</p>
+<p>##2.实践：<br>基于小程序C端ma-srvpub 模块</p>
+<p>2.1 寻找优化点<br>执行  go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/profil" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/profil</a></p>
+<p>得到如下profile 图</p>
+<p>pre_cpu_pprof.svg</p>
+<p>通过火焰图：</p>
+<p>go-torch -u <a href="http://10.99.205.129:8010" target="_blank" rel="noopener">http://10.99.205.129:8010</a> –seconds 60 -f cpu.svg</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/04/30/pprof/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -765,78 +850,6 @@ table    Lua 中的表（table）其实是一个&quot;关联数组&quot;（assoc
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/11/19/Lua/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-轮询方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/19/%E8%BD%AE%E8%AF%A2%E6%96%B9%E5%BC%8F/">轮询方式</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/19/%E8%BD%AE%E8%AF%A2%E6%96%B9%E5%BC%8F/" class="archive-article-date">
-  	<time datetime="2019-11-19T05:13:29.752Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在网上查了一下资料，发现轮询和长轮询还有不同的定义：</p>
-<p>轮询：客户端定时向服务器发送Ajax请求，服务器接到请求后马上返回响应信息并关闭连接。<br>优点：后端程序编写比较容易。<br>缺点：请求中有大半是无用，浪费带宽和服务器资源。<br>实例：适于小型应用。</p>
-<p>长轮询：客户端向服务器发送Ajax请求，服务器接到请求后hold住连接，直到有新消息才返回响应信息并关闭连接，客户端处理完响应信息后再向服务器发送新的请求。<br>优点：在无消息的情况下不会频繁的请求。<br>缺点：服务器hold连接会消耗资源。<br>实例：WebQQ、Hi网页版、Facebook IM。</p>
-<p>另外，对于长连接和socket连接也有区分：</p>
-<p>长连接：在页面里嵌入一个隐蔵iframe，将这个隐蔵iframe的src属性设为对一个长连接的请求，服务器端就能源源不断地往客户端输入数据。<br>优点：消息即时到达，不发无用请求。<br>缺点：服务器维护一个长连接会增加开销。<br>实例：Gmail聊天</p>
-<p>Flash Socket：在页面中内嵌入一个使用了Socket类的 Flash 程序JavaScript通过调用此Flash程序提供的Socket接口与服务器端的Socket接口进行通信，JavaScript在收到服务器端传送的信息后控制页面的显示。<br>优点：实现真正的即时通信，而不是伪即时。<br>缺点：客户端必须安装Flash插件；非HTTP协议，无法自动穿越防火墙。<br>实例：网络互动游戏。</p>
-<p>以上是四种请求方式的介绍和优缺点比较。</p>
-<p>说得再通透点就是：</p>
-<p>长轮循是客户端发起的，间隔一定的时间向服务器请求事件，AJAX前端实现方式。<br>优点:就是不需要保持和服务器一直联系, 资源占用会少一些<br>缺点:可能会产生比较多的请求, 或请求失败造成的数据混乱。</p>
-<p>长连接服务器和客户端会保持一个长久的联系。<br>优点：数据更新即时性好，体验流畅。<br>缺点：对服务器的资源会有一个占用，所以相对占用资源比较大，另外HTTP长连接有时效性，不是可靠连接。``</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/19/%E8%BD%AE%E8%AF%A2%E6%96%B9%E5%BC%8F/">展开全文 >></a>
         </p>
       
 
