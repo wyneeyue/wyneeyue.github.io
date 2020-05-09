@@ -6,16 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>pprof | wyue</title>
+  <title>go介绍 | wyue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍：1.1 profiling 介绍profiling 就是对应用的画像，这里画像就是应用使用 CPU 和内存的情况。也就是说应用使用了多少 CPU 资源。 在 go 语言中，主要关注的应用运行情况主要包括以下几种： CPU profile：报告程序的 CPU 使用情况，g按照一定频率去采集应用程序在 CPU 和寄存器上面的数据Memory Profile（Heap Profile）：报告程序的">
+  <meta name="description" content="go介绍go静态编译型语言，支持多重编程范式（函数式和面向对象），原生支持并发编程。 开发者可以通过使用goruntine这种轻量级线程的概念来实现这个目标，然后通过channel来实现各个goruntine之间的通信，他们实现了分段栈增长和goruntine在线程基础商多路复用技术的自动化。 环境变量GOROOT当前安装目录 GOPATH工作区的集合，类似于工作目录。每个不同的目录使用:分隔。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="pprof">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;30&#x2F;pprof&#x2F;index.html">
+<meta property="og:title" content="go介绍">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;05&#x2F;09&#x2F;go%E4%BB%8B%E7%BB%8D&#x2F;index.html">
 <meta property="og:site_name" content="wyue">
-<meta property="og:description" content="介绍：1.1 profiling 介绍profiling 就是对应用的画像，这里画像就是应用使用 CPU 和内存的情况。也就是说应用使用了多少 CPU 资源。 在 go 语言中，主要关注的应用运行情况主要包括以下几种： CPU profile：报告程序的 CPU 使用情况，g按照一定频率去采集应用程序在 CPU 和寄存器上面的数据Memory Profile（Heap Profile）：报告程序的">
+<meta property="og:description" content="go介绍go静态编译型语言，支持多重编程范式（函数式和面向对象），原生支持并发编程。 开发者可以通过使用goruntine这种轻量级线程的概念来实现这个目标，然后通过channel来实现各个goruntine之间的通信，他们实现了分段栈增长和goruntine在线程基础商多路复用技术的自动化。 环境变量GOROOT当前安装目录 GOPATH工作区的集合，类似于工作目录。每个不同的目录使用:分隔。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-06T05:17:26.314Z">
+<meta property="og:updated_time" content="2020-05-09T03:29:15.457Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="wyue" type="application/atom+xml">
@@ -152,51 +152,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-pprof" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-go介绍" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      pprof
+      go介绍
     </h1>
   
 
         
-        <a href="/2020/04/30/pprof/" class="archive-article-date">
-  	<time datetime="2020-04-30T03:23:44.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
+        <a href="/2020/05/09/go%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
+  	<time datetime="2020-05-09T03:08:12.545Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h1><h3 id="1-1-profiling-介绍"><a href="#1-1-profiling-介绍" class="headerlink" title="1.1 profiling 介绍"></a>1.1 profiling 介绍</h3><p>profiling 就是对应用的画像，这里画像就是应用使用 CPU 和内存的情况。也就是说应用使用了多少 CPU 资源。</p>
-<p>在 go 语言中，主要关注的应用运行情况主要包括以下几种：</p>
-<p>CPU profile：报告程序的 CPU 使用情况，g按照一定频率去采集应用程序在 CPU 和寄存器上面的数据<br>Memory Profile（Heap Profile）：报告程序的内存使用情况<br>Block Profiling：报告 goroutines 不在运行状态的情况，可以用来分析和查找死锁等性能瓶颈<br>Goroutine Profiling：报告 goroutines 的使用情况，有哪些 goroutine，它们的调用关系是怎样的</p>
-<h3 id="1-2-Go-语言自带的-pprof-库"><a href="#1-2-Go-语言自带的-pprof-库" class="headerlink" title="1.2 Go 语言自带的 pprof 库"></a>1.2 Go 语言自带的 pprof 库</h3><p>go 语言提供了 runtime/pprof 和 net/http/pprof </p>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>runtime/pprof     应用是一次性的，运行一段时间就结束<br>net/http/pprof<br>对于在线服务，对于一个 HTTP Server，</p>
-<p>访问 pprof 提供的 HTTP 接口，获得性能数据</p>
-<p>GDP基于GIn框架，gin的pprof工具 集成了net/http/pprof， 可以直接</p>
-<p>“github.com/DeanThompson/ginpprof”</p>
-<p>ginpprof.Wrap(webServer.Engine)</p>
-<h3 id="1-3-命令"><a href="#1-3-命令" class="headerlink" title="1.3 命令"></a>1.3 命令</h3><h4 id="1-3-1-go-tool-pprof"><a href="#1-3-1-go-tool-pprof" class="headerlink" title="1.3.1 go tool pprof"></a>1.3.1 go tool pprof</h4><p>命令行交互模式：</p>
-<p>下载 cpu profile，默认从当前开始收集 30s 的 cpu 使用情况，需要等待 30s，后面还可以带上时间参数：?seconds=60，自定义 CPU Profiling 的时长。</p>
-<p>tool pprof <a href="http://10.99.205.129:8010/debug/pprof/profile" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/profile</a></p>
-<p>下载 heap<br>go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/heap" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/heap</a></p>
-<p>下载 heap<br>go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/heap" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/heap</a></p>
-<p>执行 web（需要安装 graphviz，pprof 能够借助 grapgviz 生成程序的调用图），会生成一个 svg，直接在浏览器里打开（可能需要设置一下 .svg 文件格式的默认打开方式）</p>
-<h3 id="1-3-2-go-torch"><a href="#1-3-2-go-torch" class="headerlink" title="1.3.2 go-torch"></a>1.3.2 go-torch</h3><p>这是 uber 开源的一个工具，可以直接读取 golang profiling 数据，并生成一个火焰图的 svg 文件。</p>
-<p>go-torch</p>
-<p>-u –url：要访问的 URL，这里只是主机和端口部分<br>-s –suffix：pprof profile 的路径，默认为 /debug/pprof/profile<br>–seconds：要执行 profiling 的时间长度，默认为 30s<br>go-torch -u <a href="http://10.99.205.129:8010" target="_blank" rel="noopener">http://10.99.205.129:8010</a> –seconds 60 -f cpu.svg</p>
-<h2 id="2-实践："><a href="#2-实践：" class="headerlink" title="2.实践："></a>2.实践：</h2><p>基于小程序C端ma-srvpub 模块</p>
-<h3 id="2-1-寻找优化点"><a href="#2-1-寻找优化点" class="headerlink" title="2.1 寻找优化点"></a>2.1 寻找优化点</h3><p>执行  go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/profil" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/profil</a></p>
-<p>得到如下profile 图</p>
-<p>pre_cpu_pprof.svg</p>
-<p>通过火焰图：</p>
-<p>go-torch -u <a href="http://10.99.205.129:8010" target="_blank" rel="noopener">http://10.99.205.129:8010</a> –seconds 60 -f cpu.svg</p>
+        <h1 id="go介绍"><a href="#go介绍" class="headerlink" title="go介绍"></a>go介绍</h1><p>go静态编译型语言，支持多重编程范式（函数式和面向对象），原生支持并发编程。</p>
+<p>开发者可以通过使用goruntine这种轻量级线程的概念来实现这个目标，然后通过channel来实现各个goruntine之间的通信，他们实现了分段栈增长和goruntine在线程基础商多路复用技术的自动化。</p>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><h3 id="GOROOT"><a href="#GOROOT" class="headerlink" title="GOROOT"></a>GOROOT</h3><p>当前安装目录</p>
+<h3 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a>GOPATH</h3><p>工作区的集合，类似于工作目录。每个不同的目录使用:分隔。</p>
+<p>工作区是放置go源码的目录，一般情况下，go源码文件都需要存放到工作区中。</p>
+<p>工作区一般会包含3个子文件夹，src/pkg/bin目录</p>
+<h4 id="src-以代码包的形式组织并保存go源码文件的。每个代码包和src目录下的文件一一对应。"><a href="#src-以代码包的形式组织并保存go源码文件的。每个代码包和src目录下的文件一一对应。" class="headerlink" title="src 以代码包的形式组织并保存go源码文件的。每个代码包和src目录下的文件一一对应。"></a>src 以代码包的形式组织并保存go源码文件的。每个代码包和src目录下的文件一一对应。</h4><p>1，命令源码文件 </p>
+<p>main代码包、包括无函数声明和结果声明的main函数。</p>
+<p>2，库源码文件</p>
+<p>3，测试源码文件</p>
+<h4 id="pkg-a文件。"><a href="#pkg-a文件。" class="headerlink" title="pkg .a文件。"></a>pkg .a文件。</h4><h4 id="bin-通过go-install命令安装后，由go命令远吗生成的可执行文件。"><a href="#bin-通过go-install命令安装后，由go命令远吗生成的可执行文件。" class="headerlink" title="bin 通过go install命令安装后，由go命令远吗生成的可执行文件。"></a>bin 通过go install命令安装后，由go命令远吗生成的可执行文件。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">有两种情况下，bin 目录会变得没有意义。</span><br><span class="line"></span><br><span class="line">1，当设置了有效的 GOBIN 环境变量以后，bin 目录就变得没有意义。</span><br><span class="line">2，如果 GOPATH 里面包含多个工作区路径的时候，必须设置 GOBIN 环境变量，否则就无法安装 Go 程序的可执行文件。</span><br></pre></td></tr></table></figure>
 
+<h3 id="GOBIN"><a href="#GOBIN" class="headerlink" title="GOBIN"></a>GOBIN</h3><pre><code>go程序可执行文件的目录</code></pre><h3 id="PATH"><a href="#PATH" class="headerlink" title="PATH"></a>PATH</h3><h2 id="编译过程"><a href="#编译过程" class="headerlink" title="编译过程"></a>编译过程</h2><h3 id="go-run"><a href="#go-run" class="headerlink" title="go run"></a>go run</h3><pre><code>运行命令源码文件</code></pre><h3 id="go-build"><a href="#go-build" class="headerlink" title="go build"></a>go build</h3><pre><code>用来编译我们指定的源码文件或代码包以及它们的依赖包。</code></pre><h3 id="go-install"><a href="#go-install" class="headerlink" title="go install"></a>go install</h3><pre><code>go install 命令是用来编译并安装代码包或者源码文件的。go install 命令只比 go build 命令多做了一件事，即：安装编译后的结果文件到指定目录。</code></pre><h3 id="go-get"><a href="#go-get" class="headerlink" title="go get"></a>go get</h3><pre><code>go get 命令用于从远程代码仓库（比如 Github ）上下载并安装代码包。</code></pre>
       
 
       
@@ -275,7 +263,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/30/pprof/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/09/go%E4%BB%8B%E7%BB%8D/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -289,18 +277,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/05/09/go%E4%BB%8B%E7%BB%8D/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          go介绍
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/04/23/mysql/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql</div>
+    <a href="/2020/04/30/pprof/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">pprof</div>
       <i class="icon-circle-right"></i>
     </a>
   

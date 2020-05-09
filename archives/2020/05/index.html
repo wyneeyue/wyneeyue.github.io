@@ -6,16 +6,13 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>pprof | wyue</title>
+  <title>Archives: 2020/5 | wyue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍：1.1 profiling 介绍profiling 就是对应用的画像，这里画像就是应用使用 CPU 和内存的情况。也就是说应用使用了多少 CPU 资源。 在 go 语言中，主要关注的应用运行情况主要包括以下几种： CPU profile：报告程序的 CPU 使用情况，g按照一定频率去采集应用程序在 CPU 和寄存器上面的数据Memory Profile（Heap Profile）：报告程序的">
-<meta property="og:type" content="article">
-<meta property="og:title" content="pprof">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;30&#x2F;pprof&#x2F;index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="wyue">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2020&#x2F;05&#x2F;index.html">
 <meta property="og:site_name" content="wyue">
-<meta property="og:description" content="介绍：1.1 profiling 介绍profiling 就是对应用的画像，这里画像就是应用使用 CPU 和内存的情况。也就是说应用使用了多少 CPU 资源。 在 go 语言中，主要关注的应用运行情况主要包括以下几种： CPU profile：报告程序的 CPU 使用情况，g按照一定频率去采集应用程序在 CPU 和寄存器上面的数据Memory Profile（Heap Profile）：报告程序的">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-05-06T05:17:26.314Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="wyue" type="application/atom+xml">
@@ -152,188 +149,49 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-pprof" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      pprof
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/05/09/go%E4%BB%8B%E7%BB%8D/" class="archive-article-date">
+  	<time datetime="2020-05-09T03:08:12.545Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-09</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/05/09/go%E4%BB%8B%E7%BB%8D/">go介绍</a>
     </h1>
   
 
-        
-        <a href="/2020/04/30/pprof/" class="archive-article-date">
-  	<time datetime="2020-04-30T03:23:44.059Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="介绍："><a href="#介绍：" class="headerlink" title="介绍："></a>介绍：</h1><h3 id="1-1-profiling-介绍"><a href="#1-1-profiling-介绍" class="headerlink" title="1.1 profiling 介绍"></a>1.1 profiling 介绍</h3><p>profiling 就是对应用的画像，这里画像就是应用使用 CPU 和内存的情况。也就是说应用使用了多少 CPU 资源。</p>
-<p>在 go 语言中，主要关注的应用运行情况主要包括以下几种：</p>
-<p>CPU profile：报告程序的 CPU 使用情况，g按照一定频率去采集应用程序在 CPU 和寄存器上面的数据<br>Memory Profile（Heap Profile）：报告程序的内存使用情况<br>Block Profiling：报告 goroutines 不在运行状态的情况，可以用来分析和查找死锁等性能瓶颈<br>Goroutine Profiling：报告 goroutines 的使用情况，有哪些 goroutine，它们的调用关系是怎样的</p>
-<h3 id="1-2-Go-语言自带的-pprof-库"><a href="#1-2-Go-语言自带的-pprof-库" class="headerlink" title="1.2 Go 语言自带的 pprof 库"></a>1.2 Go 语言自带的 pprof 库</h3><p>go 语言提供了 runtime/pprof 和 net/http/pprof </p>
-<h4 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h4><p>runtime/pprof     应用是一次性的，运行一段时间就结束<br>net/http/pprof<br>对于在线服务，对于一个 HTTP Server，</p>
-<p>访问 pprof 提供的 HTTP 接口，获得性能数据</p>
-<p>GDP基于GIn框架，gin的pprof工具 集成了net/http/pprof， 可以直接</p>
-<p>“github.com/DeanThompson/ginpprof”</p>
-<p>ginpprof.Wrap(webServer.Engine)</p>
-<h3 id="1-3-命令"><a href="#1-3-命令" class="headerlink" title="1.3 命令"></a>1.3 命令</h3><h4 id="1-3-1-go-tool-pprof"><a href="#1-3-1-go-tool-pprof" class="headerlink" title="1.3.1 go tool pprof"></a>1.3.1 go tool pprof</h4><p>命令行交互模式：</p>
-<p>下载 cpu profile，默认从当前开始收集 30s 的 cpu 使用情况，需要等待 30s，后面还可以带上时间参数：?seconds=60，自定义 CPU Profiling 的时长。</p>
-<p>tool pprof <a href="http://10.99.205.129:8010/debug/pprof/profile" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/profile</a></p>
-<p>下载 heap<br>go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/heap" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/heap</a></p>
-<p>下载 heap<br>go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/heap" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/heap</a></p>
-<p>执行 web（需要安装 graphviz，pprof 能够借助 grapgviz 生成程序的调用图），会生成一个 svg，直接在浏览器里打开（可能需要设置一下 .svg 文件格式的默认打开方式）</p>
-<h3 id="1-3-2-go-torch"><a href="#1-3-2-go-torch" class="headerlink" title="1.3.2 go-torch"></a>1.3.2 go-torch</h3><p>这是 uber 开源的一个工具，可以直接读取 golang profiling 数据，并生成一个火焰图的 svg 文件。</p>
-<p>go-torch</p>
-<p>-u –url：要访问的 URL，这里只是主机和端口部分<br>-s –suffix：pprof profile 的路径，默认为 /debug/pprof/profile<br>–seconds：要执行 profiling 的时间长度，默认为 30s<br>go-torch -u <a href="http://10.99.205.129:8010" target="_blank" rel="noopener">http://10.99.205.129:8010</a> –seconds 60 -f cpu.svg</p>
-<h2 id="2-实践："><a href="#2-实践：" class="headerlink" title="2.实践："></a>2.实践：</h2><p>基于小程序C端ma-srvpub 模块</p>
-<h3 id="2-1-寻找优化点"><a href="#2-1-寻找优化点" class="headerlink" title="2.1 寻找优化点"></a>2.1 寻找优化点</h3><p>执行  go tool pprof <a href="http://10.99.205.129:8010/debug/pprof/profil" target="_blank" rel="noopener">http://10.99.205.129:8010/debug/pprof/profil</a></p>
-<p>得到如下profile 图</p>
-<p>pre_cpu_pprof.svg</p>
-<p>通过火焰图：</p>
-<p>go-torch -u <a href="http://10.99.205.129:8010" target="_blank" rel="noopener">http://10.99.205.129:8010</a> –seconds 60 -f cpu.svg</p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/30/pprof/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/05/09/go%E4%BB%8B%E7%BB%8D/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          go介绍
-        
-      </div>
-    </a>
   
   
-    <a href="/2020/04/23/mysql/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mysql</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -356,8 +214,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
