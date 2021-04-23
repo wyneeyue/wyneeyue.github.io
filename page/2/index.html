@@ -151,6 +151,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-golang学习-接口" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/13/golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3/">golang学习-接口</a>
+    </h1>
+  
+
+        
+        <a href="/2020/02/13/golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3/" class="archive-article-date">
+  	<time datetime="2020-02-13T01:56:07.351Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-02-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="golang学习-接口"><a href="#golang学习-接口" class="headerlink" title="golang学习-接口"></a>golang学习-接口</h2><p>面向接口</p>
+<p>面向接口编程是一个老生常谈的话题，接口 的作用其实就是为不同层级的模块提供了一个定义好的中间层，上游不再需要依赖下游的具体实现，充分地对上下游进行了解耦。<br>这种编程方式不仅是在 Go 语言中是被推荐的，在几乎所有的编程语言中，我们都会推荐这种编程的方式，它为我们的程序提供了非常强的灵活性，想要构建一个稳定、健壮的 Go 语言项目，不使用接口是完全无法做到的。</p>
+<p>如果一个略有规模的项目中没有出现任何 type … interface 的定义，那么作者可以推测出这在很大的概率上是一个工程质量堪忧并且没有多少单元测试覆盖的项目，我们确实需要认真考虑一下如何使用接口对项目进行重构。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">package post</span><br><span class="line"></span><br><span class="line">var client *grpc.ClientConn</span><br><span class="line"></span><br><span class="line">func init() &#123;</span><br><span class="line">    var err error</span><br><span class="line">    client, err = grpc.Dial(...）</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        panic(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func ListPosts() ([]*Post, error) &#123;</span><br><span class="line">    posts, err := client.ListPosts(...)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return []*Post&#123;&#125;, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return posts, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">package post</span><br><span class="line"></span><br><span class="line">type Service interface &#123;</span><br><span class="line">    ListPosts() ([]*Post, error)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">type service struct &#123;</span><br><span class="line">    conn *grpc.ClientConn</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func NewService(conn *grpc.ClientConn) Service &#123;</span><br><span class="line">    return &amp;service&#123;</span><br><span class="line">        conn: conn,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (s *service) ListPosts() ([]*Post, error) &#123;</span><br><span class="line">    posts, err := s.conn.ListPosts(...)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return []*Post&#123;&#125;, err</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return posts, nil</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过接口 Service 暴露对外的 ListPosts 方法；<br>使用 NewService 函数初始化 Service 接口的实现并通过私有的结构体 service 持有 grpc 连接；<br>ListPosts 不再依赖全局变量，而是依赖接口体 service 持有的连接；<br>当我们使用这种方式重构代码之后，就可以在 main 函数中显式的初始化 grpc 连接、创建 Service 接口的实现并调用 ListPosts 方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import ...</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">    conn, err = grpc.Dial(...）</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        panic(err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    svc := post.NewService(conn)</span><br><span class="line">    posts, err := svc.ListPosts()</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        panic(err)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    fmt.Println(posts)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种使用接口组织代码的方式在 Go 语言中非常常见，我们应该在代码中尽可能地使用这种思想和模式对外提供功能：</p>
+<p>使用大写的 Service 对外暴露方法；<br>使用小写的 service 实现接口中定义的方法；<br>通过 NewService 函数初始化 Service 接口；<br>当我们使用上述方法组织代码之后，其实就对不同模块的依赖进行了解耦，也正遵循了软件设计中经常被提到的一句话 — 『依赖接口，不要依赖实现』，也就是面向接口编程。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/02/13/golang%E5%AD%A6%E4%B9%A0-%E6%8E%A5%E5%8F%A3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-反射" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
